@@ -1,0 +1,3 @@
+interface IUserAvatar {
+  userImage?: string;
+}
