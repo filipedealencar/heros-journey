@@ -278,8 +278,6 @@ const SuperheroDuel: React.FC<{ superheroes: Superhero[] }> = ({
     }
   };
 
-  console.log(data);
-
   return (
     <div
       style={{
@@ -317,7 +315,6 @@ const DuelModal: React.FC<{
   heroes: Superhero[];
 }> = ({ isOpen, onClose, heroes }) => {
   const { setDuel } = useContext(GlobalContext);
-  console.log(heroes);
   const hero1 = heroes[0];
   const hero2 = heroes[1];
 

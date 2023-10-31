@@ -47,8 +47,6 @@ export const GlobalContextProvider = ({ children }: GlobalProps) => {
     height: typeof window === "object" ? window.innerHeight : 0,
   });
 
-  console.log(duel, mode);
-
   useEffect(() => {
     if (typeof window === "object") {
       window.addEventListener("resize", () =>
