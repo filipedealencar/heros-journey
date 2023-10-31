@@ -1,27 +1,36 @@
-import { useEffect, RefObject, useRef } from "react";
+import { MutableRefObject, useEffect } from "react";
 
-interface IOutsideClick {
-  refs: RefObject<HTMLElement>[];
+interface useOutsideClickProps {
+  ref: MutableRefObject<any>;
+  extraRef?: MutableRefObject<any>;
   callback: () => void;
+  condition?: boolean;
 }
 
-const useOutsideClick = ({ refs, callback }: IOutsideClick) => {
-  const handleClick = (event: MouseEvent) => {
-    const isOutsideClick = !refs.some(
-      (ref) => ref.current && ref.current.contains(event.target as Node)
-    );
-    if (isOutsideClick) {
-      callback();
-    }
-  };
-
+export const useOutsideClick = ({
+  ref,
+  extraRef,
+  callback,
+  condition = true,
+}: useOutsideClickProps) => {
   useEffect(() => {
-    document.addEventListener("click", handleClick);
+    const handleClickOutside = (event: MouseEvent) => {
+      let extraCondition = extraRef
+        ? !extraRef.current.contains(event.target as Node)
+        : true;
 
-    return () => {
-      document.removeEventListener("click", handleClick);
+      if (
+        ref.current &&
+        !ref.current.contains(event.target as Node) &&
+        extraCondition
+      ) {
+        if (condition) callback();
+      }
     };
-  }, [refs, callback]);
-};
 
-export default useOutsideClick;
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref, extraRef, callback, condition]);
+};

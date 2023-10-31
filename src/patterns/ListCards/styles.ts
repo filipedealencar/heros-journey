@@ -3,11 +3,8 @@ import styled from "styled-components";
 export const MainListCards = styled.main`
   display: flex;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
+  height: 100%;
   align-items: center;
-  flex-direction: column;
-  gap: 24px;
 `;
 
 export const ContainerListCards = styled.div`

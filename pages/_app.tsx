@@ -29,10 +29,8 @@ const App: React.FC<AppProps> = ({
     return Component.getLayout ? (
       Component.getLayout(
         <ThemeProvider theme={theme}>
-          <ChakraProvider>
-            <GlobalStyle />
-            <Component {...pageProps} />
-          </ChakraProvider>
+          <GlobalStyle />
+          <Component {...pageProps} />
         </ThemeProvider>
       )
     ) : (
@@ -46,7 +44,9 @@ const App: React.FC<AppProps> = ({
   return (
     mounted && (
       <GlobalContextProvider>
-        <ThemeWrapper />
+        <ChakraProvider>
+          <ThemeWrapper />
+        </ChakraProvider>
       </GlobalContextProvider>
     )
   );

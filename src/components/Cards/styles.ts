@@ -14,9 +14,14 @@ export const ContentCards = styled.div`
   backface-visibility: hidden;
 `;
 
+export const ContentImg = styled.div`
+  display: flex;
+  min-width: 20vw;
+`;
+
 export const ImgCards = styled.img<{ $open: boolean }>`
-  width: ${({ $open }) => ($open ? 25 : 80)}%;
-  height: ${({ $open }) => ($open ? 60 : 70)}%;
+  width: ${({ $open }) => ($open ? "auto" : "80%")};
+  height: ${({ $open }) => ($open ? "auto" : "70%")};
   border-radius: ${({ $open }) => ($open ? "10px" : "0px 0px 10px 10px")};
   transform: ${({ $open }) => ($open ? "rotateY(180deg)" : "rotateY(0deg)")};
 `;
@@ -60,15 +65,14 @@ export const CardWrapper = styled.div<{
 
   position: ${({ $open }) => $open && "absolute"};
   z-index: ${({ $open }) => $open && 100};
-  width: ${({ $open }) => $open && "100%"};
+  width: ${({ $open }) => $open && "max-content"};
   height: ${({ $open }) => $open && "100%"};
 `;
 
 export const CardsOpen = styled.div<{ $open: boolean }>`
-  position: ${({ $open }) => $open && "absolute"};
-  width: ${({ $open }) => $open && "100%"};
   display: flex;
   margin: ${({ $open }) => $open && 0};
+  height: ${({ $open }) => $open && "100%"};
   align-items: ${({ $open }) => $open && "normal"};
   justify-content: ${({ $open }) => $open && "flex-start"};
   flex-direction: ${({ $open }) => $open && "row-reverse"};
@@ -76,7 +80,8 @@ export const CardsOpen = styled.div<{ $open: boolean }>`
   perspective: ${({ $open }) => $open && 1000}px;
   transition: ${({ $open }) => $open && "transform 0.5s"};
   backface-visibility: ${({ $open }) => $open && "hidden"};
-  transform: ${({ $open }) => ($open ? "rotateY(0deg)" : "rotateY(180deg)")};
+  transform: rotateY(180deg);
+  gap: 24px;
 `;
 
 export const CardsClose = styled.div<{ $open: boolean }>`
@@ -99,14 +104,19 @@ export const Text = styled.p<{ $open: boolean }>`
   color: #0083eb;
   text-align: center;
   text-transform: uppercase;
-  margin: ${({ $open }) => $open && "2rem 0 0"};
   transform: ${({ $open }) => ($open ? "rotateY(180deg)" : "rotateY(0deg)")};
 `;
 
+export const ContainerCardInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+`;
 export const CardInfo = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: end;
   gap: 2vh;
   width: 100%;
 `;

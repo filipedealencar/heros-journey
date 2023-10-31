@@ -2,6 +2,19 @@ import { createGlobalStyle } from "styled-components";
 import backGroundImg from "../../public/images/background.jpg";
 
 const GlobalStyle = createGlobalStyle`
+#__next{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vw 0
+}
+
+html{
+  width: 100vw;
+    height: 100vh;
+
+}
+
 
 html,body {
 
@@ -15,9 +28,10 @@ html,body {
     font-family: 'Open Sans',sans-serif;
     line-height: 20px;
    
-    background-image: url(${backGroundImg.src}); 
-  background-size: cover;
-  background-position: center;
+    background-image: url(${backGroundImg.src}) !important; 
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+  background-position: center !important;
 
 
     font-size: 16px;

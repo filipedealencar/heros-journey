@@ -23,25 +23,27 @@ export const Informations: React.FC<IIFormations> = ({ data }) => {
       <InformationsName>Biografia</InformationsName>
       {data.biography.fullName && data.biography.fullName !== (`-` || "") && (
         <InformationsDetail $sizeStr={data.biography.fullName.length}>
+          <span>Nome Completo:</span>
           <div>
-            {" "}
-            <span>Nome Completo:</span> <p>{data.biography.fullName}</p>
+            <p>{data.biography.fullName}</p>
           </div>
         </InformationsDetail>
       )}
       {data.biography.aliases[0] &&
         data.biography.aliases[0] !== (`-` || "") && (
-          <InformationsDetail $sizeStr={data.biography.aliases[0].length}>
+          <InformationsDetail
+            $sizeStr={data.biography.aliases.join(", ").length}
+          >
+            <span>Apelido:</span>
             <div>
-              {" "}
-              <span>Apelido:</span> <p>{data.biography.aliases[0]}</p>
+              <p>{data.biography.aliases.join(", ")}</p>
             </div>
           </InformationsDetail>
         )}
       {data.biography.alterEgos && data.biography.alterEgos !== (`-` || "") && (
         <InformationsDetail $sizeStr={data.biography.alterEgos.length}>
+          <span>Alcunhas:</span>
           <div>
-            <span>Alcunhas:</span>{" "}
             <p>
               {data.biography.alterEgos === "No alter egos found."
                 ? "Nenhum encontrado"

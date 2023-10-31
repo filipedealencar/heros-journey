@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
 export const CardContainer = styled.div`
-  border: 1px solid #ccc;
   padding: 16px;
-  margin: 16px;
   max-width: 400px;
   text-align: center;
   transform: rotateY(180deg);
@@ -35,13 +33,15 @@ export const InformationsDetail = styled.div<{ $sizeStr: number }>`
   div {
     display: flex;
     gap: 8px;
-    overflow: ${({ $sizeStr }) => $sizeStr > 38 && "hidden"};
+    overflow: ${({ $sizeStr }) => $sizeStr > 30 && "hidden"};
     p {
       margin: 0;
-      animation: ${({ $sizeStr }) => $sizeStr > 38 && "mymove 8s infinite"};
+      font-style: italic;
+      color: #0083eb;
+      animation: ${({ $sizeStr }) => $sizeStr > 30 && "mymove 8s infinite"};
 
       ${({ $sizeStr }) =>
-        $sizeStr > 38 &&
+        $sizeStr > 30 &&
         "@keyframes mymove {0%  {transform: translateX(0%); } 25% {transform: translateX(-50%); } 50% {transform: translateX(-50%); } 100% {transform: translateX(0%); }}"}
     }
   }

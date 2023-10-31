@@ -1,13 +1,13 @@
 import { UserAvatar } from "@/components/UserAvatar";
-import { StyledChakraBox } from "./styles";
+import { ContainerSidebar, StyledChakraBox } from "./styles";
 
 const Sidebar: React.FC = ({}) => {
   return (
-    <div>
+    <ContainerSidebar>
       <StyledChakraBox>
         <UserAvatar />
       </StyledChakraBox>
-    </div>
+    </ContainerSidebar>
   );
 };
 
