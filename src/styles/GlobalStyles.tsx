@@ -6,7 +6,6 @@ const GlobalStyle = createGlobalStyle`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4vw 0
 }
 
 html{
@@ -28,10 +27,8 @@ html,body {
     font-family: 'Open Sans',sans-serif;
     line-height: 20px;
    
-    background-image: url(${backGroundImg.src}) !important; 
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
-  background-position: center !important;
+    background: linear-gradient(90deg, rgba(0,182,242,1) 0%, rgba(153,246,255,1) 50%, rgba(0,130,227,1) 100%) !important; 
+
 
 
     font-size: 16px;

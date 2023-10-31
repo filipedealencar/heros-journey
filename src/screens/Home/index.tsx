@@ -1,18 +1,11 @@
 import { CustomLoading } from "@/components/Load";
+import { GlobalContext } from "@/contexts/GlobalContext";
 import { ListCards } from "@/patterns/ListCards";
-import Sidebar from "@/patterns/Sidebar";
+import SidebarWithHeader from "@/patterns/Sidebar";
 import HerosApi from "@/services/apis/Heros";
 import { Superhero } from "@/types/HerosTypes";
-import {
-  Box,
-  Container,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  HStack,
-  Input,
-} from "@chakra-ui/react";
-import { useState, useEffect, ChangeEvent } from "react";
+import { Box } from "@chakra-ui/react";
+import { useState, useEffect, ChangeEvent, useContext } from "react";
 import styled from "styled-components";
 
 const ContentMsgNotFound = styled.div`
@@ -30,6 +23,8 @@ const MsgNotFound = styled.div`
 `;
 
 const Home: React.FC = ({}) => {
+  const { mode, setMode, setDuel } = useContext(GlobalContext);
+
   const [isMounted, setIsMounted] = useState(true);
 
   const heros = new HerosApi();
@@ -41,7 +36,14 @@ const Home: React.FC = ({}) => {
   const [filteredSuperheroes, setFilteredSuperheroes] = useState<
     Superhero[] | undefined
   >([]);
-
+  useEffect(() => {
+    setDuel({
+      opponentOne: { id: undefined, name: undefined },
+      opponentTwo: { id: undefined, name: undefined },
+      duelConfirmed: false,
+    });
+    setMode("list");
+  }, []);
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
     setIsLoadSearch(true);
@@ -71,7 +73,7 @@ const Home: React.FC = ({}) => {
     }, 2000);
   }, [data, isLoading]);
   return (
-    <div
+    <Box
       style={{
         display: "flex",
         position: "relative",
@@ -83,7 +85,6 @@ const Home: React.FC = ({}) => {
         <CustomLoading />
       ) : (
         <>
-          <Sidebar />
           {filteredSuperheroes?.length === 0 ? (
             <ContentMsgNotFound>
               <MsgNotFound>
@@ -95,24 +96,9 @@ const Home: React.FC = ({}) => {
           ) : (
             <ListCards itens={filteredSuperheroes ?? []} />
           )}
-          <div>
-            {" "}
-            <FormControl>
-              <FormLabel>Busca</FormLabel>
-              <Input
-                background={"#fff"}
-                border={"1px solid #000"}
-                value={searchTerm}
-                onChange={handleSearchChange}
-                placeholder="Ex: superman"
-                type="email"
-              />
-              <FormHelperText>Digite o nome do persogem</FormHelperText>
-            </FormControl>
-          </div>
         </>
       )}
-    </div>
+    </Box>
   );
 };
 

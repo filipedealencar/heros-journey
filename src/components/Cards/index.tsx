@@ -1,76 +1,129 @@
-import { useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+// Chakra imports
 import {
-  CardWrapper,
-  ContentImg,
-  ContentCards,
-  GlassCard,
+  Avatar,
+  AvatarGroup,
+  Badge,
+  Flex,
+  Button,
+  Icon,
+  Image,
   Text,
-  ImgCards,
+  DarkMode,
+  useColorModeValue,
+  useDisclosure,
+} from "@chakra-ui/react";
+// Assets
+import { MdPeople } from "react-icons/md";
+import { IoEllipsisHorizontalSharp } from "react-icons/io5";
+import { Informations } from "@/components/Informations";
+import { CustomModal } from "@/components/Modal";
+import PowerStatus from "@/components/PowerStatus";
+import {
   CardsOpen,
-  CardsClose,
-  CardInfo,
+  ContentImg,
+  ImgCards,
   ContainerCardInfo,
+  CardInfo,
+  TextCustom,
 } from "./styles";
-import { ICards } from "./types";
-import { Informations } from "../Informations";
-import { useOutsideClick } from "@/hooks/useOutsideClick";
-import PowerStatus from "../PowerStatus";
-import { CustomModal } from "../Modal";
-import { useDisclosure } from "@chakra-ui/react";
+import { GlobalContext } from "@/contexts/GlobalContext";
+import { ITeams } from "./types";
 
-export const Cards: React.FC<ICards> = ({ herosValues }) => {
-  // const [isOpen, setIsOpen] = useState(false);
-  const cardIsOpenRef = useRef<HTMLDivElement>(null);
-  // useOutsideClick({
-  //   callback: () => setIsOpen(false),
-  //   ref: cardIsOpenRef,
-  // });
+export const TeamsCard: React.FC<ITeams> = ({ herosValues }) => {
+  let boxBg = useColorModeValue("white !important", "#111c44 !important");
+  let mainText = useColorModeValue("gray.800", "white");
+  const { mode, duel, setDuel } = useContext(GlobalContext);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isOpenModal1, setIsOpenModal1] = useState(false);
+
+  const openModal1 = () => setIsOpenModal1(true);
+  const closeModal1 = () => setIsOpenModal1(false);
+
+  const defineScore = (powers: object) => {
+    const values = Object.values(powers);
+    const totalScore = values.reduce((total, value) => total + value, 0);
+    const averageScore = totalScore / values.length;
+
+    return Math.round(averageScore);
+  };
 
   return (
-    <CardWrapper ref={cardIsOpenRef} $open={isOpen} onClick={onOpen}>
-      {/* {isOpen ? (
-        <CardsOpen $open={isOpen}>
-          <ContentImg>
-            <ImgCards $open={isOpen} src={herosValues?.images.lg} />
-          </ContentImg>
+    <Flex
+      borderRadius="20px"
+      bg={boxBg}
+      p="20px"
+      h="260px"
+      w={{ base: "230px", md: "260px" }}
+      alignItems="center"
+      direction="column"
+      cursor="pointer"
+      onClick={() => (mode === "list" ? openModal1() : null)}
+      background={
+        mode === "list"
+          ? "#fff"
+          : herosValues.id === duel.opponentOne.id
+          ? "#415fcf"
+          : herosValues.id === duel.opponentTwo.id
+          ? "#cf4141"
+          : "#fff"
+      }
+    >
+      <Image
+        src={herosValues.images.lg}
+        maxW="100%"
+        height="80%"
+        borderRadius="20px"
+        mb="10px"
+      />
 
-          <ContainerCardInfo>
-            <CardInfo>
-              <Text $open={isOpen}>{herosValues?.name}</Text>
-              <Informations data={herosValues} />
-            </CardInfo>
-            <PowerStatus powers={herosValues.powerstats} />
-       
-          </ContainerCardInfo>
-        </CardsOpen>
-      ) : (
-        <CardsClose $open={isOpen}>
-          <ImgCards $open={isOpen} src={herosValues?.images.lg} />
-          <Text $open={isOpen}>{herosValues?.name}</Text>
-        </CardsClose>
-      )} */}
-
-      <CardsClose $open={isOpen}>
-        <CustomModal onClose={onClose} open={isOpen}>
-          <CardsOpen $open={isOpen}>
+      <Flex mt="auto" align="center" gap="8px" w="100%">
+        <CustomModal onClose={closeModal1} open={isOpenModal1}>
+          <CardsOpen $open={isOpenModal1}>
             <ContentImg>
-              <ImgCards $open={isOpen} src={herosValues?.images.lg} />
+              <ImgCards $open={isOpenModal1} src={herosValues?.images.lg} />
             </ContentImg>
 
             <ContainerCardInfo>
               <CardInfo>
-                <Text $open={isOpen}>{herosValues?.name}</Text>
+                <TextCustom $open={isOpenModal1}>
+                  {herosValues?.name}
+                </TextCustom>
                 <Informations data={herosValues} />
               </CardInfo>
               <PowerStatus powers={herosValues.powerstats} />
             </ContainerCardInfo>
           </CardsOpen>
         </CustomModal>
-        <ImgCards $open={isOpen} src={herosValues?.images.lg} />
-        <Text $open={isOpen}>{herosValues?.name}</Text>
-      </CardsClose>
-    </CardWrapper>
+
+        <Text
+          fontWeight="600"
+          color={mainText}
+          textAlign="start"
+          fontSize="xl"
+          margin="0"
+          textTransform="uppercase"
+          fontFamily="Bangers"
+        >
+          {herosValues.name}
+        </Text>
+        <DarkMode>
+          <Badge
+            fontSize="large"
+            borderRadius="9px"
+            size="md"
+            colorScheme="green"
+            color="green.400"
+            textAlign="center"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            width="min-content"
+          >
+            {defineScore(herosValues.powerstats)}
+          </Badge>
+        </DarkMode>
+      </Flex>
+    </Flex>
   );
 };

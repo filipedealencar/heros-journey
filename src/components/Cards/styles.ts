@@ -17,6 +17,13 @@ export const ContentCards = styled.div`
 export const ContentImg = styled.div`
   display: flex;
   min-width: 20vw;
+
+  ${({ theme }) => theme.media.max.mobileL`
+    width: 60%;
+    display: flex;
+    align-items: baseline;
+  
+  `}
 `;
 
 export const ImgCards = styled.img<{ $open: boolean }>`
@@ -82,6 +89,12 @@ export const CardsOpen = styled.div<{ $open: boolean }>`
   backface-visibility: ${({ $open }) => $open && "hidden"};
   transform: rotateY(180deg);
   gap: 24px;
+
+  ${({ theme }) => theme.media.max.mobileL`
+   flex-direction: column;
+   align-items: center;
+  
+  `}
 `;
 
 export const CardsClose = styled.div<{ $open: boolean }>`
@@ -99,12 +112,17 @@ export const CardsClose = styled.div<{ $open: boolean }>`
   backface-visibility: hidden;
 `;
 
-export const Text = styled.p<{ $open: boolean }>`
+export const TextCustom = styled.p<{ $open: boolean }>`
   font-size: ${({ $open }) => ($open ? "4rem" : "18px")};
   color: #0083eb;
   text-align: center;
   text-transform: uppercase;
   transform: ${({ $open }) => ($open ? "rotateY(180deg)" : "rotateY(0deg)")};
+
+  ${({ theme }) => theme.media.max.mobileL`
+ font-size: 2rem;
+  
+  `}
 `;
 
 export const ContainerCardInfo = styled.div`
@@ -119,4 +137,9 @@ export const CardInfo = styled.div`
   align-items: end;
   gap: 2vh;
   width: 100%;
+
+  ${({ theme }) => theme.media.max.mobileL`
+  align-items: center;
+  
+  `}
 `;

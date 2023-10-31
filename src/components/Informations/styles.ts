@@ -7,6 +7,11 @@ export const CardContainer = styled.div`
   transform: rotateY(180deg);
   background: #fff;
   border-radius: 12px;
+
+  ${({ theme }) => theme.media.max.mobileL`
+    width: 100%;
+  
+  `}
 `;
 
 export const InformationsImage = styled.img`

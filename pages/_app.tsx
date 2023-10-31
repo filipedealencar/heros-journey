@@ -7,6 +7,8 @@ import { NextPage } from "next";
 import "@/styles/fonts.css";
 import { GlobalContextProvider } from "@/contexts/GlobalContext";
 import { ChakraProvider } from "@chakra-ui/react";
+import chakraTheme from "@/styles/ChakraUi/chakraTheme";
+import SidebarWithHeader from "@/patterns/Sidebar";
 
 export type NextPageWithLayout<P = unknown, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -30,13 +32,17 @@ const App: React.FC<AppProps> = ({
       Component.getLayout(
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <Component {...pageProps} />
+          <SidebarWithHeader>
+            <Component {...pageProps} />
+          </SidebarWithHeader>
         </ThemeProvider>
       )
     ) : (
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Component {...pageProps} />
+        <SidebarWithHeader>
+          <Component {...pageProps} />
+        </SidebarWithHeader>
       </ThemeProvider>
     );
   };
